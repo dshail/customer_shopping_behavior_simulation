@@ -1,0 +1,195 @@
+# MLOps Pipeline Configuration
+
+# Model configurations
+models:
+  churn_prediction:
+    model_type: "classification"
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 10
+      min_samples_split: 5
+      min_samples_leaf: 2
+      random_state: 42
+    validation_split: 0.2
+    cross_validation_folds: 5
+    performance_threshold: 0.8
+    retrain_frequency_days: 7
+    
+  spending_prediction:
+    model_type: "regression"
+    hyperparameters:
+      n_estimators: 150
+      max_depth: 15
+      min_samples_split: 5
+      min_samples_leaf: 2
+      random_state: 42
+    validation_split: 0.2
+    cross_validation_folds: 5
+    performance_threshold: 0.7
+    retrain_frequency_days: 14
+    
+  persona_classification:
+    model_type: "classification"
+    hyperparameters:
+      n_estimators: 80
+      max_depth: 12
+      random_state: 42
+    performance_threshold: 0.85
+    retrain_frequency_days: 30
+
+# Monitoring configuration
+monitoring:
+  enable_drift_detection: true
+  drift_threshold: 0.1
+  performance_alert_threshold: 0.05
+  data_quality_checks: true
+  
+  # Metrics to track
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "mse"
+    - "mae"
+    - "r2_score"
+  
+  # Alerting
+  alerts:
+    email_notifications: true
+    slack_webhook: null
+    performance_degradation: true
+    data_drift: true
+
+# A/B Testing configuration
+ab_testing:
+  default_traffic_split: 0.1
+  minimum_sample_size: 1000
+  significance_threshold: 0.05
+  max_experiment_duration_days: 30
+  
+  # Experiment types
+  experiment_types:
+    - "model_comparison"
+    - "feature_engineering"
+    - "hyperparameter_tuning"
+    - "algorithm_comparison"
+
+# Data pipeline configuration
+data_pipeline:
+  batch_size: 10000
+  processing_schedule: "daily"
+  data_validation: true
+  feature_store_enabled: false
+  
+  # Data quality thresholds
+  quality_thresholds:
+    missing_data_threshold: 0.1
+    outlier_threshold: 0.05
+    schema_validation: true
+
+# Model deployment configuration
+deployment:
+  environment: "staging"  # staging, production
+  auto_deployment: false
+  rollback_enabled: true
+  health_check_interval_minutes: 5
+  
+  # Deployment strategies
+  strategies:
+    - "blue_green"
+    - "canary"
+    - "rolling"
+  
+  # Resource limits
+  resources:
+    cpu_limit: "2"
+    memory_limit: "4Gi"
+    gpu_enabled: false
+
+# Feature engineering configuration
+feature_engineering:
+  auto_feature_generation: true
+  feature_selection: true
+  dimensionality_reduction: false
+  
+  # Feature types to generate
+  feature_types:
+    - "temporal"
+    - "aggregation"
+    - "interaction"
+    - "statistical"
+
+# Model versioning
+versioning:
+  model_registry: "local"  # local, mlflow, wandb
+  version_format: "YYYYMMDD_HHMMSS"
+  keep_versions: 10
+  auto_tagging: true
+
+# Experiment tracking
+experiment_tracking:
+  backend: "mlflow"  # mlflow, wandb, tensorboard
+  tracking_uri: "file:./mlruns"
+  auto_log: true
+  
+  # Metrics to log
+  log_metrics:
+    - "training_time"
+    - "model_size"
+    - "inference_time"
+    - "memory_usage"
+
+# Performance optimization
+performance:
+  parallel_training: true
+  max_workers: 4
+  memory_optimization: true
+  model_compression: false
+  
+  # Caching
+  caching:
+    feature_cache: true
+    model_cache: true
+    prediction_cache: false
+
+# Security and compliance
+security:
+  data_encryption: true
+  model_encryption: false
+  audit_logging: true
+  access_control: true
+  
+  # Privacy settings
+  privacy:
+    differential_privacy: false
+    data_anonymization: true
+    retention_policy_days: 365
+
+# Integration settings
+integrations:
+  databases:
+    - type: "postgresql"
+      enabled: false
+    - type: "mongodb"
+      enabled: false
+  
+  message_queues:
+    - type: "kafka"
+      enabled: false
+    - type: "rabbitmq"
+      enabled: false
+  
+  cloud_services:
+    aws_s3: false
+    gcp_storage: false
+    azure_blob: false
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_logging: true
+  log_rotation: true
+  max_log_size_mb: 100
+  backup_count: 5

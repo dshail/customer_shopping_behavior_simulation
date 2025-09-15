@@ -1,0 +1,99 @@
+# LLM Integration Configuration via OpenRouter
+# Get your API key from https://openrouter.ai/
+
+api_key: "" # Replace with your OpenRouter API key
+base_url: "https://openrouter.ai/api/v1"
+model: "anthropic/claude-3-haiku" # Cost-effective default model
+temperature: 0.7
+max_tokens: 2000
+timeout: 30
+site_url: "https://github.com/your-repo" # For OpenRouter attribution
+site_name: "Customer Behavior Simulation"
+
+# Feature toggles
+features:
+  persona_generation: true
+  insights_generation: true
+  report_generation: true
+  trend_prediction: true
+  narrative_reports: true
+
+# Available model options (choose based on your needs and budget)
+model_options:
+  # Cost-effective options
+  cost_effective:
+    - "anthropic/claude-3-haiku" # Fast, cheap, good quality
+    - "openai/gpt-3.5-turbo" # OpenAI's cost-effective option
+    - "meta-llama/llama-3-8b-instruct" # Open source option
+
+  # Balanced performance/cost
+  balanced:
+    - "anthropic/claude-3-sonnet" # Good balance of speed and quality
+    - "openai/gpt-4-turbo" # OpenAI's balanced option
+    - "google/gemini-pro" # Google's offering
+
+  # Premium options
+  premium:
+    - "anthropic/claude-3-opus" # Highest quality from Anthropic
+    - "openai/gpt-4" # OpenAI's premium model
+    - "openai/gpt-4-32k" # Extended context version
+
+# Model-specific settings for different tasks
+task_models:
+  persona_generation:
+    model: "anthropic/claude-3-sonnet" # Better for creative tasks
+    temperature: 0.8
+    max_tokens: 3000
+
+  insights_generation:
+    model: "anthropic/claude-3-haiku" # Good for analytical tasks
+    temperature: 0.3
+    max_tokens: 1500
+
+  report_generation:
+    model: "anthropic/claude-3-sonnet" # Better for long-form content
+    temperature: 0.4
+    max_tokens: 2500
+
+# Prompt templates
+prompts:
+  persona_generation:
+    system: "You are an expert retail analyst and customer behavior specialist."
+    max_personas: 10
+
+  insights_generation:
+    system: "You are a senior retail analytics consultant."
+    focus_areas: ["revenue", "behavior", "trends", "opportunities"]
+
+  report_generation:
+    system: "You are a senior business analyst."
+    report_types: ["comprehensive", "executive", "technical", "marketing"]
+
+# Rate limiting and retry settings
+rate_limiting:
+  requests_per_minute: 60
+  retry_attempts: 3
+  retry_delay_seconds: 1
+  backoff_multiplier: 2
+
+# Cost management
+cost_management:
+  max_monthly_spend: 50.0 # USD (OpenRouter is typically cheaper)
+  alert_threshold: 40.0 # USD
+  track_usage: true
+  preferred_providers: ["anthropic", "openai"] # Prioritize these providers
+
+# OpenRouter specific settings
+openrouter:
+  # Optional: Set preferences for model routing
+  route_preferences:
+    - "anthropic/*" # Prefer Anthropic models
+    - "openai/*" # Then OpenAI models
+
+  # Fallback models if primary is unavailable
+  fallback_models:
+    - "anthropic/claude-3-haiku"
+    - "openai/gpt-3.5-turbo"
+
+  # Enable model comparison (A/B testing different models)
+  enable_model_comparison: false
